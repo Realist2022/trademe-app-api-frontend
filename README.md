@@ -1,12 +1,79 @@
-# React + Vite
+# Item Management Dashboard (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React frontend application for managing auction items. It provides a user-friendly interface to create, view, update, delete, and search for items by interacting with a backend API.
 
-Currently, two official plugins are available:
+This project was built with Vite, React, and Axios, and focuses on modern React patterns like custom hooks and component-based architecture.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Demo
 
-## Expanding the ESLint configuration
+*(Suggestion: Take a screenshot of your running application, add it to your repository, and update the path below!)*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Item Management Dashboard Screenshot](./docs/screenshot.png)
+
+## Features
+
+-   **View Items:** Fetch and display a list of all items from the database.
+-   **Create Items:** A dedicated form to add new items.
+-   **Update Items:** Edit item details in a pop-up modal dialog.
+-   **Delete Items:** Remove items from the database with a confirmation prompt.
+-   **Live Search:** Dynamically search for items by keyword.
+-   **On-Demand Loading:** Data is only fetched when the user clicks "Show All" or "Search" to improve initial load time.
+
+## Tech Stack
+
+-   **Framework:** [React](https://reactjs.org/)
+-   **Build Tool:** [Vite](https://vitejs.dev/)
+-   **HTTP Client:** [Axios](https://axios-http.com/)
+-   **Language:** JavaScript (ES6+) & CSS3
+
+## Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+-   [Node.js](https://nodejs.org/) (which includes npm) installed on your machine.
+-   A running instance of the corresponding backend server. This project expects the backend to be running at `http://localhost:5000`.
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/Realist2022/trademe-app-api-frontend.git](https://github.com/Realist2022/trademe-app-api-frontend.git)
+    ```
+
+2.  **Navigate to the project directory:**
+    ```bash
+    cd trademe-app-api-frontend
+    ```
+
+3.  **Install NPM packages:**
+    ```bash
+    npm install
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application should now be running and accessible at `http://localhost:5173` (or another port if 5173 is in use).
+
+## Configuration
+
+The base URL for the backend API is configured in a single location. If your backend is running on a different address, you can change it here:
+
+**File:** `src/api/itemsApi.js`
+```javascript
+const apiClient = axios.create({
+  baseURL: 'http://localhost:5000/api/items', // <-- Change this URL if needed
+  // ...
+});
+```
+
+## Available Scripts
+
+In the project directory, you can run:
+
+-   `npm run dev`: Runs the app in development mode.
+-   `npm run build`: Builds the app for production to the `dist` folder.
+-   `npm run preview`: Serves the production build locally to preview it.

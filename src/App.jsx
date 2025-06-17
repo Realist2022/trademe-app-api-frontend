@@ -8,7 +8,8 @@ import SearchBar from "./components/SearchBar";
 import "./App.css";
 
 export default function App() {
-  const { items, isLoading, setIsLoading, fetchItems, deleteItem, setItems } = useItems();
+  const { items, isLoading, setIsLoading, fetchItems, deleteItem, setItems } =
+    useItems();
   const [editingItem, setEditingItem] = useState(null);
 
   const handleSearch = async (query) => {
@@ -16,8 +17,8 @@ export default function App() {
       fetchItems();
       return;
     }
-    
-    setIsLoading(true); 
+
+    setIsLoading(true);
     try {
       const data = await api.search(query);
       setItems(data);

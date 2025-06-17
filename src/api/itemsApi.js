@@ -1,25 +1,57 @@
-const API_BASE_URL = "http://localhost:5000/api/items";
+import axios from 'axios';
 
-const apiRequest = async (endpoint = "", method = "GET", data = null) => {
-  const config = {
-    method,
-    headers: { "Content-Type": "application/json" },
-  };
-  if (data) {
-    config.body = JSON.stringify(data);
+const apiClient = axios.create({
+  baseURL: 'http://localhost:5000/api/items',
+  headers: {
+    'Content-Type': 'application/json',
   }
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-  const responseData = await response.json();
-  if (!response.ok) {
-    throw new Error(responseData.message || `HTTP error! status: ${response.status}`);
-  }
-  return responseData;
+});
+
+const handleApiError = (error) => {
+  const message = error.response?.data?.message || error.message;
+  console.error("API Error:", message);
+  throw new Error(message);
 };
 
+// 
 export const api = {
-  get: (endpoint = "") => apiRequest(endpoint, "GET"),
-  post: (data) => apiRequest("", "POST", data),
-  put: (id, data) => apiRequest(`/${id}`, "PUT", data),
-  delete: (id) => apiRequest(`/${id}`, "DELETE"),
-  search: (query) => apiRequest(`/search?q=${query}`, "GET"),
+  get: async (endpoint = "") => {
+    try {
+      const response = await apiClient.get(endpoint);
+      return response.data;
+    } catch (error) {
+      handleApiError(error);
+    }
+  },
+
+  post: async (data, endpoint = "") => {
+    try {
+      const response = await apiClient.post(endpoint, data);
+      return response.data;
+    } catch (error) {
+      handleApiError(error);
+    }
+  },
+
+  put: async (id, data) => {
+    try {
+      const response = await apiClient.put(`/${id}`, data);
+      return response.data;
+    } catch (error) {
+      handleApiError(error);
+    }
+  },
+
+  delete: async (id) => {
+    try {
+      const response = await apiClient.delete(`/${id}`);
+      return response.data;
+    } catch (error) {
+      handleApiError(error);
+    }
+  },
+
+  search: async (query) => {
+    return api.get(`/search?q=${query}`);
+  },
 };
